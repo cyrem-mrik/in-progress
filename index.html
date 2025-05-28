@@ -13,8 +13,7 @@
                 <link href="assets/css/style.css" rel="stylesheet">
             
             <!--  Re-Captcha  -->
-            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-                
+            <script src="https://www.google.com/recaptcha/api.js?render=6LcefU0rAAAAAGpcH7ivG6x2jiEbvJcrhxin_hFt"></script>
                 </head>
     
     <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
@@ -40,52 +39,56 @@
                                     <div class="col-sm-6 col-sm-offset-3">
                                         <!-- Complete form with reCAPTCHA and custom fields -->
                                         <form action="https://api.staticforms.xyz/submit" method="POST">
-                                          <!-- Required: Your Static Forms API key -->
-                                          <input type="hidden" name="apiKey" value="sf_ade9k6bad9e37mh59930gch0">
+                                            <!-- Required: Your Static Forms API key -->
+                                            <input type="hidden" name="apiKey" value="sf_ade9k6bad9e37mh59930gch0">
 
-                                          <!-- Enable reply-to functionality -->
-                                          <input type="hidden" name="replyTo" value="@">
+                                                <!-- Enable reply-to functionality -->
+                                                <input type="hidden" name="replyTo" value="@">
 
-                                          <!-- Anti-spam honeypot field -->
-                                          <input
-                                            type="text"
-                                            name="honeypot"
-                                            style="display: none"
-                                            tabindex="-1"
-                                            autocomplete="off"
-                                          >
+                                                    <!-- Anti-spam honeypot field -->
+                                                    <input
+                                                        type="text"
+                                                        name="honeypot"
+                                                        style="display: none"
+                                                        tabindex="-1"
+                                                        autocomplete="off"
+                                                        >
 
-                                          <!-- Form fields -->
-                                          <div class="form-group">
-                                            <label for="name">Name:</label>
-                                            <input type="text" id="name" name="name" required>
-                                          </div>
+                                                        <!-- Form fields -->
+                                                        <div class="form-group">
+                                                            <label for="name">Name:</label>
+                                                            <input type="text" id="name" name="name" required>
+                                                        </div>
 
-                                          <div class="form-group">
-                                            <label for="email">Email:</label>
-                                            <input type="email" id="email" name="email" required>
-                                          </div>
+                                                        <div class="form-group">
+                                                            <label for="email">Email:</label>
+                                                            <input type="email" id="email" name="email" required>
+                                                        </div>
 
-                                          <!-- Custom field with $ prefix -->
-                                          <div class="form-group">
-                                            <label for="company">Company:</label>
-                                            <input type="text" id="company" name="$company">
-                                          </div>
+                                                        <!-- Custom field with $ prefix -->
+                                                        <div class="form-group">
+                                                            <label for="company">Company:</label>
+                                                            <input type="text" id="company" name="$company">
+                                                        </div>
 
-                                          <div class="form-group">
-                                            <label for="message">Message:</label>
-                                            <textarea id="message" name="message" required></textarea>
-                                          </div>
+                                                        <div class="form-group">
+                                                            <label for="message">Message:</label>
+                                                            <textarea id="message" name="message" required></textarea>
+                                                        </div>
 
-                                          <!-- reCAPTCHA integration -->
-                                          <div class="g-recaptcha" data-sitekey="6Le-bE0rAAAAAI0vYiXsOH3mF2CPyKm8snp7Nnto"></div>
-                                          <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                                                        <!-- reCAPTCHA integration -->
+                                                        <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
 
-                                          <!-- Optional redirect URLs -->
-<!--                                          <input type="hidden" name="redirectTo" value="https://example.com/success">-->
 
-                                          <button type="submit">Send Message</button>
-                                        </form>
+                                                        <!-- Optional redirect URLs -->
+                                                        <input type="hidden" name="redirectTo" value="https://aymericperceval.com">
+                                                            
+                                                            
+                                                            <div>
+                                                                <button type="submit">Send Message</button>
+                                                            </div>
+                                                    </form>
+                                        <div id="form-messages"></div>
                                     </div>
                                 </div>
                             </div>
@@ -96,5 +99,34 @@
         
         <!--  JavaScripts  -->
         <script src="assets/js/main.js"></script>
+
+        
+        <!--  reCaptcha  -->
+        <script>
+          document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting immediately
+
+            var form = this; // Reference to the form
+            var siteKey = '6LcefU0rAAAAAGpcH7ivG6x2jiEbvJcrhxin_hFt'; // Replace with your Site Key again
+
+            grecaptcha.ready(function() {
+              // The 'action' parameter here is for your analytics in the reCAPTCHA admin console.
+              // Choose a descriptive name (e.g., 'contact_form_submit').
+              grecaptcha.execute(siteKey, {action: 'submit_contact'}).then(function(token) {
+                // Add the token to the hidden input field
+                document.getElementById('g-recaptcha-response').value = token;
+
+                // Now submit the form programmatically
+                form.submit();
+              }).catch(function(error) {
+                console.error('reCAPTCHA execution error:', error);
+                // Handle error - maybe display a message to the user
+                // For example: document.getElementById('form-messages').textContent = 'reCAPTCHA error. Please try again.';
+              });
+            });
+          });
+        </script>
+        
+        
     </body>
 </html>
